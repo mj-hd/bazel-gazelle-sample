@@ -1,0 +1,19 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+load("@io_bazel_rules_docker//go:image.bzl", "go_image")
+
+go_image(
+    name = "go_image",
+    embed = [":go_default_library"],
+    goarch = "amd64",
+    goos = "linux",
+    importpath = "github.com/mjhd-devlion/bazel-gazelle-sample",
+    pure = "on",
+)
+
+go_library(
+    name = "go_default_library",
+    srcs = ["main.go"],
+    importpath = "github.com/mjhd-devlion/bazel-gazelle-sample/cmd/sample",
+    visibility = ["//visibility:private"],
+    deps = ["//pkg/sample:go_default_library"],
+)
